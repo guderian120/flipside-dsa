@@ -46,6 +46,7 @@ public class LogEntry {
 
     /**
      * Validation helper for external classes.
+     * 
      * @return true if the line matches our security log pattern.
      */
     public static boolean isValidFormat(String logLine) {
@@ -54,6 +55,7 @@ public class LogEntry {
 
     /**
      * Main Constructor: Parses a raw string into a structured object.
+     * 
      * @param logLine The raw line from the log file.
      * @throws IllegalArgumentException if the format is fundamentally wrong.
      */
@@ -105,16 +107,31 @@ public class LogEntry {
             this.action = "Error Parsing";
             this.severity = 0;
             // Re-throw if it was a schema violation so the manager can skip it
-            if (e instanceof IllegalArgumentException) throw (IllegalArgumentException) e;
+            if (e instanceof IllegalArgumentException)
+                throw (IllegalArgumentException) e;
         }
     }
 
     // Getters for analytics...
-    public LocalDateTime getTimestamp() { return timestamp; }
-    public String getAction() { return action; }
-    public String getUser() { return user; }
-    public String getSourceIP() { return sourceIP; }
-    public int getSeverity() { return severity; }
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getSourceIP() {
+        return sourceIP;
+    }
+
+    public int getSeverity() {
+        return severity;
+    }
 
     @Override
     public String toString() {

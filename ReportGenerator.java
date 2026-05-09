@@ -14,11 +14,11 @@ public class ReportGenerator {
     /**
      * Generates an HTML report with CSS styling.
      * 
-     * @param manager    The manager holding the log data.
+     * @param managers   The list of managers holding the log data.
      * @param outputPath Where to save the resulting .html file.
      * @param analytics  Performance metrics (timing, memory, etc.) to include.
      */
-    public static void generateHtmlReport(NetworkLogManager manager, String outputPath, Map<String, String> analytics) {
+    public static void generateHtmlReport(List<NetworkLogManager> managers, String outputPath, Map<String, String> analytics) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputPath))) {
             // HTML Boilerplate and Document Header
             writer.println("<!DOCTYPE html>");
@@ -91,18 +91,21 @@ public class ReportGenerator {
             // SECTION 2: HIGH-LEVEL STATISTICS
             writer.println("        <div class='stats-grid'>");
             writer.println(
-                    "            <div class='stat-card'><h3>Log Count</h3><p>" + manager.getLogCount() + "</p></div>");
+                    "            <div class='stat-card'><h3>Log Count</h3><p>" + managers.get(0).getLogCount() + "</p></div>");
             writer.println("            <div class='stat-card'><h3>Critical Threats</h3><p>"
-                    + manager.getHighSeverityLogs(4).size() + "</p></div>");
+                    + managers.get(0).getHighSeverityLogs(4).size() + "</p></div>");
             writer.println("            <div class='stat-card'><h3>Attack Sources</h3><p>"
-                    + manager.getLogsBySourceIP().size() + "</p></div>");
+                    + managers.get(0).getLogsBySourceIP().size() + "</p></div>");
+            String structures = managers.size() > 1 ? "ALL" : managers.get(0).getListType().toUpperCase();
             writer.println("            <div class='stat-card'><h3>Data Structure</h3><p>"
-                    + manager.getListType().toUpperCase() + "</p></div>");
+                    + structures + "</p></div>");
             writer.println("        </div>");
 
             // SECTION 3: TECHNICAL PERFORMANCE (BIG O)
             writer.println("        <h2>2. Technical Performance Analysis</h2>");
-            writer.println("        <div class='complexity-box'>" + manager.getComplexityReport() + "</div>");
+            for (NetworkLogManager manager : managers) {
+                writer.println("        <div class='complexity-box'>" + manager.getComplexityReport() + "</div>");
+            }
 
             // SECTION 4: DETAILED SECURITY LOGS
             writer.println("        <h2>3. Detailed Security Log listing</h2>");
@@ -112,7 +115,7 @@ public class ReportGenerator {
             writer.println("            <tbody>");
 
             // Get all logs and sort them by severity (High first) before printing
-            List<LogEntry> logs = manager.getAllLogs();
+            List<LogEntry> logs = managers.get(0).getAllLogs();
             logs.sort((a, b) -> Integer.compare(b.getSeverity(), a.getSeverity()));
 
             for (LogEntry log : logs) {
