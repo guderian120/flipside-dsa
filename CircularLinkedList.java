@@ -1,4 +1,3 @@
-package javaCode;
 
 /**
  * A Circular Linked List implementation.
@@ -6,7 +5,7 @@ package javaCode;
  * This is ideal for buffer rotation and continuous data streams.
  */
 public class CircularLinkedList<T> implements LinkedList<T> {
-    
+
     /**
      * Internal Node for Circular List.
      */
@@ -33,12 +32,12 @@ public class CircularLinkedList<T> implements LinkedList<T> {
         if (head == null) {
             // First item: points to itself
             head = tail = newNode;
-            tail.next = head; 
+            tail.next = head;
         } else {
             // Add to the end and reconnect to head
             tail.next = newNode;
             tail = newNode;
-            tail.next = head; 
+            tail.next = head;
         }
         size++;
     }

@@ -1,4 +1,3 @@
-package javaCode;
 
 /**
  * A standard Singly Linked List implementation.
@@ -6,7 +5,7 @@ package javaCode;
  * requires O(n) time to add to the tail.
  */
 public class SinglyLinkedList<T> implements LinkedList<T> {
-    
+
     /**
      * Internal Node class.
      * Contains data and a reference to the next node only.
@@ -21,7 +20,7 @@ public class SinglyLinkedList<T> implements LinkedList<T> {
     }
 
     private Node<T> head; // Start of the list
-    private int size;    // Track number of elements
+    private int size; // Track number of elements
 
     /**
      * Adds an element to the tail of the list.

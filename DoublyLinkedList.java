@@ -1,4 +1,3 @@
-package javaCode;
 
 /**
  * A standard Doubly Linked List implementation.
@@ -6,7 +5,7 @@ package javaCode;
  * for bidirectional traversal and O(1) removals if the node is known.
  */
 public class DoublyLinkedList<T> implements LinkedList<T> {
-    
+
     /**
      * Internal Node class for Doubly Linked List.
      * Contains two pointers: next and prev.
@@ -23,7 +22,7 @@ public class DoublyLinkedList<T> implements LinkedList<T> {
 
     private Node<T> head; // First element
     private Node<T> tail; // Last element (allows O(1) addition)
-    private int size;    // Cache the size for O(1) access
+    private int size; // Cache the size for O(1) access
 
     /**
      * Adds an element to the end of the list.

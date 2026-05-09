@@ -1,4 +1,3 @@
-package javaCode;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -7,10 +6,11 @@ import java.io.*;
 
 /**
  * The NetworkLogManager acts as a controller for the log storage and analysis.
- * It uses the Strategy Pattern to swap between different Linked List implementations.
+ * It uses the Strategy Pattern to swap between different Linked List
+ * implementations.
  */
 public class NetworkLogManager {
-    // The internal list used to store LogEntry objects. 
+    // The internal list used to store LogEntry objects.
     // Defined by an interface to support polymorphism.
     private LinkedList<LogEntry> logList;
     private String listType;
@@ -18,6 +18,7 @@ public class NetworkLogManager {
 
     /**
      * Default constructor with no size limit.
+     * 
      * @param listType The type of linked list to use (singly, doubly, circular).
      */
     public NetworkLogManager(String listType) {
@@ -26,8 +27,9 @@ public class NetworkLogManager {
 
     /**
      * Main constructor for initializing the manager.
+     * 
      * @param listType The type of linked list to use.
-     * @param maxSize Maximum number of logs for circular storage.
+     * @param maxSize  Maximum number of logs for circular storage.
      */
     public NetworkLogManager(String listType, int maxSize) {
         this.listType = listType;
@@ -56,7 +58,8 @@ public class NetworkLogManager {
 
     /**
      * Adds a log entry to the list.
-     * If the list is a full circular buffer, it automatically removes the oldest log.
+     * If the list is a full circular buffer, it automatically removes the oldest
+     * log.
      */
     public void addLog(LogEntry log) {
         // Circular buffer eviction logic:
@@ -141,7 +144,8 @@ public class NetworkLogManager {
             String line;
             int linesChecked = 0;
             while ((line = reader.readLine()) != null && linesChecked < 5) {
-                if (line.trim().isEmpty()) continue;
+                if (line.trim().isEmpty())
+                    continue;
                 // Use the static validator in LogEntry
                 if (!LogEntry.isValidFormat(line.trim())) {
                     return false;
@@ -183,7 +187,7 @@ public class NetworkLogManager {
         StringBuilder sb = new StringBuilder();
         sb.append("--- COMPLEXITY ANALYSIS METRICS ---\n");
         sb.append("Current Structure: ").append(listType.toUpperCase()).append("\n");
-        
+
         switch (listType.toLowerCase()) {
             case "singly":
                 sb.append("  * Addition: O(n) - Linear traversal required to find tail\n");

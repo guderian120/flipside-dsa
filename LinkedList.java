@@ -1,14 +1,13 @@
-package javaCode;
 
 import java.util.List;
 
 /**
  * Generic Interface for all Linked List implementations in the system.
- * This defines the 'Contract' that all list types must follow, 
+ * This defines the 'Contract' that all list types must follow,
  * enabling Polymorphism throughout the application.
  */
 public interface LinkedList<T> {
-    
+
     /**
      * Adds an item of type T to the list.
      */
