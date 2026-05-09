@@ -18,17 +18,18 @@ public class project {
 
     /**
      * Application execution starts here.
+     * 
      * @param args Command line arguments (not used)
      */
     public static void main(String[] args) {
         // Initialize Scanner for console input
         java.util.Scanner scanner = new java.util.Scanner(System.in);
-        
+
         // Display Application Header
         System.out.println("\n" + "=".repeat(50));
         System.out.println("   NETWORK LOG ANALYSIS SYSTEM (v2.0)");
         System.out.println("=".repeat(50));
-        
+
         // STEP 1: Select Data Structure
         // Polymorphism allows us to switch the underlying list implementation easily
         System.out.print("\nSelect Data Structure (singly, doubly, circular) [default: doubly]: ");
@@ -36,19 +37,19 @@ public class project {
         if (listTypeChoice.isEmpty()) {
             listTypeChoice = "doubly";
         }
-        
+
         // Initialize the manager with the user's choice
         NetworkLogManager manager = new NetworkLogManager(listTypeChoice);
         System.out.println(">> Initialized with " + manager.getListType().toUpperCase() + " structure.");
 
         String filePath = "";
         boolean isValid = false;
-        
+
         // STEP 2: File Selection & Schema Validation Loop
         while (!isValid) {
             System.out.print("\nEnter path to log file (or type 'sample' for default): ");
             filePath = scanner.nextLine().trim();
-            
+
             // Handle the 'sample' shortcut
             if (filePath.equalsIgnoreCase("sample")) {
                 // Check common locations for the sample file to ensure it's found
@@ -61,14 +62,14 @@ public class project {
                     continue;
                 }
             }
-            
+
             // Ensure the file physically exists before attempting to read
             File file = new File(filePath);
             if (!file.exists()) {
                 System.out.println("!! Error: File not found at " + filePath);
                 continue;
             }
-            
+
             // Perform Schema Validation to ensure the log format matches our regex
             System.out.println(">> Validating schema...");
             if (manager.validateLogFile(filePath)) {
@@ -107,16 +108,18 @@ public class project {
         // STEP 6: Report Generation
         // Exports all data and analytics to a premium HTML format
         System.out.println("\n--- Generating Industry Standard Report ---");
-        
+
         // Prepare analytics map for the report generator
         java.util.Map<String, String> analytics = new java.util.HashMap<>();
         analytics.put("Processing Time", duration + " ms");
         analytics.put("Throughput", String.format("%.2f logs/sec", (manager.getLogCount() / (duration / 1000.0))));
-        analytics.put("Memory Usage", (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024 + " MB");
-        analytics.put("Search Efficiency", manager.getListType().equalsIgnoreCase("singly") ? "Low (Linear)" : "Medium (Bidirectional)");
+        analytics.put("Memory Usage",
+                (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024 + " MB");
+        analytics.put("Search Efficiency",
+                manager.getListType().equalsIgnoreCase("singly") ? "Low (Linear)" : "Medium (Bidirectional)");
 
         // Create a unique filename using the current timestamp
-        String reportName = "Security_Report_" + System.currentTimeMillis() + ".html";
+        String reportName = "Reports/Security_Report_" + System.currentTimeMillis() + ".html";
         ReportGenerator.generateHtmlReport(manager, reportName, analytics);
 
         // Final completion summary
@@ -125,7 +128,7 @@ public class project {
         System.out.println("  Report exported to: " + reportName);
         System.out.println("  Processing Time: " + duration + "ms");
         System.out.println("=".repeat(50));
-        
+
         System.out.println("\nPress Enter to exit.");
         scanner.nextLine();
         scanner.close(); // Clean up resources
@@ -134,6 +137,7 @@ public class project {
     /**
      * Utility to generate a random LogEntry object.
      * Useful for stress testing or simulations.
+     * 
      * @return A randomized LogEntry
      */
     private static LogEntry generateRandomLog() {
